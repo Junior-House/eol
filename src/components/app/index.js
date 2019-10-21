@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 import React from 'react';
 import {
   BrowserRouter as Router,
@@ -14,11 +13,6 @@ import HomePage from '../home';
 import AccountPage from '../account';
 import AdminPage from '../admin';
 import * as ROUTES from '../../constants/routes';
-=======
-import React from "react";
-import { BrowserRouter as Router } from "react-router-dom";
-import Navigation from "../navigation";
->>>>>>> 7ef37e1684accb7c6b9d50adaa77dc5701214d26
 
 const App = () => (
   <Router>
