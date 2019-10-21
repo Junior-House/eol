@@ -1,12 +1,14 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
+import { compose } from 'recompose';
 
+import { withFirebase } from '../firebase';
 import * as ROUTES from '../../constants/routes';
 
 const SignUpPage = () => (
     <div>
-      <h1>Sign Up</h1>
-      <SignUpForm />
+        <h1>Sign Up</h1>
+        <SignUpForm />
     </div>
 );
 
@@ -18,13 +20,29 @@ const INITIAL_STATE = {
     error: null,
 };
 
-class SignUpForm extends Component {
+class SignUpFormBase extends Component {
     constructor(props) {
         super(props);
         this.state = { ...INITIAL_STATE };
     }
 
-    onSubmit = event => {}
+    onSubmit = event => {
+        const { email, passwordOne } = this.state;
+
+        // authenticate user in firebase
+        this.props.firebase
+            .doCreateUserWithEmailAndPassword(email, passwordOne)
+            .then(authUser => {
+                this.setState({ ...INITIAL_STATE });
+                this.props.history.push(ROUTES.HOME);
+            })
+            .catch(error => {
+                this.setState({ error });
+            });
+
+        // prevent page reload
+        event.preventDefault();
+    }
 
     onChange = event => {
         this.setState({ [event.target.name]: event.target.value });
@@ -45,6 +63,7 @@ class SignUpForm extends Component {
             email === '' ||
             username === '';
 
+        // render sign-up form
         return (
             <form onSubmit={this.onSubmit}>
                 <input
@@ -91,6 +110,11 @@ const SignUpLink = () => (
         Don't have an account? <Link to={ROUTES.SIGN_UP}>Sign Up</Link>
     </p>
 );
+
+const SignUpForm = compose(
+    withRouter,
+    withFirebase
+)(SignUpFormBase)
 
 export default SignUpPage;
 export { SignUpForm, SignUpLink };
