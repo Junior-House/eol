@@ -1,5 +1,7 @@
 # EOL
 
+EOL; you already know what's going on.
+
 ## Available Scripts
 
 In the project directory, you can run:
