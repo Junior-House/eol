@@ -4,11 +4,11 @@ import { AuthUserContext, withAuthorization } from '../session';
 import { PasswordForgetForm } from '../password-forget';
 import PasswordChangeForm from '../password-change';
 
-const AccountPage = () => (
+const ProfilePage = () => (
     <AuthUserContext.Consumer>
         {authUser => (
             <div>
-                <h1>Account: {authUser.email}</h1>
+                <h1>Profile: {authUser.email}</h1>
                 <PasswordForgetForm />
                 <PasswordChangeForm />
             </div>
@@ -18,4 +18,4 @@ const AccountPage = () => (
 
 const condition = authUser => !!authUser;
 
-export default withAuthorization(condition)(AccountPage);
+export default withAuthorization(condition)(ProfilePage);
