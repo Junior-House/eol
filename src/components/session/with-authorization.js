@@ -13,6 +13,8 @@ const withAuthorization = condition => Component => {
             // subscribe to changes
             this.listener = this.props.firebase.auth.onAuthStateChanged(
                 authUser => {
+
+                    // route to sign-in if unauthorized
                     if (!condition(authUser)) {
                         this.props.history.push(ROUTES.SIGN_IN);
                     }

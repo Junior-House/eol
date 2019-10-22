@@ -27,16 +27,28 @@ class SignUpFormBase extends Component {
     }
 
     onSubmit = event => {
-        const { email, passwordOne } = this.state;
-
+        const { username, email, passwordOne } = this.state;
+        
         // sign-up user in firebase
         this.props.firebase
             .doCreateUserWithEmailAndPassword(email, passwordOne)
-            .then(authUser => {
+            .then(() => {
+
+                // create user in realtime database
+                this.props.firebase
+                    .user(username)
+                    .set({
+                        username,
+                        email
+                    });
+            })
+            .then(() => {
+
+                // reset state and route to home
                 this.setState({ ...INITIAL_STATE });
                 this.props.history.push(ROUTES.HOME);
             })
-            .catch(error => {
+            .catch (error => {
                 this.setState({ error });
             });
 
@@ -94,7 +106,7 @@ class SignUpFormBase extends Component {
                     type="password"
                     placeholder="Confirm Password"
                 />
-            
+
                 <button disabled={isInvalid} type="submit">
                     Sign Up
                 </button>
