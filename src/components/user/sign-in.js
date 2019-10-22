@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 import { compose } from 'recompose';
 
-import { SignUpLink } from '../sign-up';
-import { PasswordForgetLink } from '../password-forget';
+import { SignUpLink } from '../user/sign-up';
+import { PasswordForgetLink } from '../password/password-forget';
 import { withFirebase } from '../firebase';
 import * as ROUTES from '../../routes';
 
