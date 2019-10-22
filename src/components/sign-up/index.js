@@ -28,28 +28,50 @@ class SignUpFormBase extends Component {
 
     onSubmit = event => {
         const { username, email, passwordOne } = this.state;
-        
-        // sign-up user in firebase
+        var submitError = null;
+
         this.props.firebase
-            .doCreateUserWithEmailAndPassword(email, passwordOne)
+            .user(username)
+            .once('value')
+            .then(snapshot => {
+                if (snapshot.exists()) {
+                    submitError = {
+                        code: "auth/username-already-in-use",
+                        message: "The username is already in " +
+                            "use by another account." 
+                    };
+                }
+            })
             .then(() => {
 
-                // create user in realtime database
+                // prevent duplicate usernames
+                if (submitError) {
+                    this.setState({ error: submitError });
+                    return;
+                }
+
+                // sign-up user in firebase
                 this.props.firebase
-                    .user(username)
-                    .set({
-                        username,
-                        email
-                    });
-            })
-            .then(() => {
+                .doCreateUserWithEmailAndPassword(email, passwordOne)
+                .then(() => {
 
-                // reset state and route to home
-                this.setState({ ...INITIAL_STATE });
-                this.props.history.push(ROUTES.HOME);
-            })
-            .catch (error => {
-                this.setState({ error });
+                    // create user in realtime database
+                    this.props.firebase
+                        .user(username)
+                        .set({
+                            username,
+                            email
+                        });
+                })
+                .then(() => {
+
+                    // reset state and route to home
+                    this.setState({ ...INITIAL_STATE });
+                    this.props.history.push(ROUTES.HOME);
+                })
+                .catch (error => {
+                    this.setState({ error });
+                });
             });
 
         // prevent page reload
