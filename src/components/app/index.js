@@ -11,7 +11,7 @@ import PasswordForgetPage from '../password-forget';
 import HomePage from '../home';
 import ProfilePage from '../profile';
 
-import * as ROUTES from '../../constants/routes';
+import * as ROUTES from '../../routes';
 import { withAuthentication } from '../session';
 
 const App = () => (
