@@ -5,12 +5,29 @@ import { compose } from 'recompose';
 import { withFirebase } from '../firebase';
 import * as ROUTES from '../../routes';
 
-const SignUpPage = () => (
-    <div>
-        <h1>Sign Up</h1>
-        <SignUpForm />
-    </div>
-);
+import Modal from 'react-bootstrap/Modal'
+
+const SignUpPageBase = (props) => {
+    const [show, setShow] = React.useState(true);
+    const handleClose = () => {
+        setShow(false);
+        props.history.push(ROUTES.HOME);
+    }
+
+    return (
+        <>
+            <Modal show={show} onHide={handleClose} animation={false}>
+                <Modal.Header closeButton>
+                    <Modal.Title>Sign Up</Modal.Title>
+                </Modal.Header>
+
+                <Modal.Body>
+                    <SignUpForm />
+                </Modal.Body>
+            </Modal>
+        </>
+    );
+};
 
 const INITIAL_STATE = {
     username: '',
@@ -38,7 +55,7 @@ class SignUpFormBase extends Component {
                     submitError = {
                         code: "auth/username-already-in-use",
                         message: "The username is already in " +
-                            "use by another profile." 
+                            "use by another profile."
                     };
                 }
             })
@@ -52,26 +69,26 @@ class SignUpFormBase extends Component {
 
                 // sign-up user in firebase
                 this.props.firebase
-                .doCreateUserWithEmailAndPassword(email, passwordOne)
-                .then(() => {
+                    .doCreateUserWithEmailAndPassword(email, passwordOne)
+                    .then(() => {
 
-                    // create user in realtime database
-                    this.props.firebase
-                        .user(username)
-                        .set({
-                            username,
-                            email
-                        });
-                })
-                .then(() => {
+                        // create user in realtime database
+                        this.props.firebase
+                            .user(username)
+                            .set({
+                                username,
+                                email
+                            });
+                    })
+                    .then(() => {
 
-                    // reset state and route to home
-                    this.setState({ ...INITIAL_STATE });
-                    this.props.history.push(ROUTES.HOME);
-                })
-                .catch (error => {
-                    this.setState({ error });
-                });
+                        // reset state and route to home
+                        this.setState({ ...INITIAL_STATE });
+                        this.props.history.push(ROUTES.HOME);
+                    })
+                    .catch(error => {
+                        this.setState({ error });
+                    });
             });
 
         // prevent page reload
@@ -148,7 +165,11 @@ const SignUpLink = () => (
 const SignUpForm = compose(
     withRouter,
     withFirebase
-)(SignUpFormBase)
+)(SignUpFormBase);
+
+const SignUpPage = compose(
+    withRouter
+)(SignUpPageBase);
 
 export default SignUpPage;
-export { SignUpForm, SignUpLink };
+export { SignUpLink };

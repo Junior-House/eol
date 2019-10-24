@@ -1,15 +1,31 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
+import { compose } from 'recompose';
 
-import { withFirebase } from '../firebase';
 import * as ROUTES from '../../routes';
+import { withFirebase } from '../firebase';
 
-const PasswordForgetPage = () => (
-    <div>
-        <h1>Password Forget</h1>
-        <PasswordForgetForm />
-    </div>
-);
+import Modal from 'react-bootstrap/Modal'
+
+const PasswordForgetPageBase = (props) => {
+    const [show, setShow] = React.useState(true);
+    const handleClose = () => {
+        setShow(false);
+        props.history.push(ROUTES.HOME);
+    }
+
+    return (
+        <Modal show={show} onHide={handleClose} animation={false}>
+            <Modal.Header closeButton>
+                <Modal.Title>Forgot Password</Modal.Title>
+            </Modal.Header>
+
+            <Modal.Body>
+                <PasswordForgetForm />
+            </Modal.Body>
+        </Modal>
+    );
+};
 
 const INITIAL_STATE = {
     email: '',
@@ -57,11 +73,11 @@ class PasswordForgetFormBase extends Component {
                     type="text"
                     placeholder="Email Address"
                 />
-                
+
                 <button disabled={isInvalid} type="submit">
                     Reset My Password
                 </button>
-                
+
                 {error && <p>{error.message}</p>}
             </form>
         );
@@ -74,7 +90,13 @@ const PasswordForgetLink = () => (
     </p>
 );
 
-const PasswordForgetForm = withFirebase(PasswordForgetFormBase);
+const PasswordForgetForm = compose(
+    withFirebase
+)(PasswordForgetFormBase);
+
+const PasswordForgetPage = compose(
+    withRouter
+)(PasswordForgetPageBase);
 
 export default PasswordForgetPage;
-export { PasswordForgetForm, PasswordForgetLink };
+export { PasswordForgetLink, PasswordForgetForm };

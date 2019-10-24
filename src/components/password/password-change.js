@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
+
 import { withFirebase } from '../firebase';
+import { compose } from 'recompose';
 
 const INITIAL_STATE = {
     passwordOne: '',
@@ -7,7 +9,7 @@ const INITIAL_STATE = {
     error: null,
 };
 
-class PasswordChangeForm extends Component {
+class PasswordChangeFormBase extends Component {
     constructor(props) {
         super(props);
         this.state = { ...INITIAL_STATE };
@@ -67,4 +69,8 @@ class PasswordChangeForm extends Component {
     }
 }
 
-export default withFirebase(PasswordChangeForm);
+const PasswordChangeForm = compose(
+    withFirebase
+)(PasswordChangeFormBase);
+
+export default PasswordChangeForm;

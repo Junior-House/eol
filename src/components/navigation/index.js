@@ -2,7 +2,6 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 import * as ROUTES from '../../routes';
-import SignOutButton from '../user/sign-out';
 import { AuthUserContext } from '../session';
 
 import './style.css'
@@ -18,16 +17,10 @@ const Navigation = () => (
 );
 
 const NavigationAuth = () => (
-    <ul>
-        <Link to={ROUTES.PROFILE}>
-                <img id="profile-icon" src={ProfileIcon} alt="Profile Icon">
-                </img>
-        </Link>
-
-        <li>
-            <SignOutButton />
-        </li>
-    </ul>
+    <Link to={ROUTES.PROFILE}>
+            <img id="profile-icon" src={ProfileIcon} alt="Profile Icon">
+            </img>
+    </Link>
 );
 
 const NavigationNonAuth = () => (

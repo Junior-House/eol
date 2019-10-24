@@ -2,18 +2,29 @@ import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 import { compose } from 'recompose';
 
+import * as ROUTES from '../../routes';
 import { SignUpLink } from '../user/sign-up';
 import { PasswordForgetLink } from '../password/password-forget';
 import { withFirebase } from '../firebase';
-import * as ROUTES from '../../routes';
 
 import Modal from 'react-bootstrap/Modal'
 
 const SignInPageBase = (props) => {
     const [show, setShow] = React.useState(true);
+
     const handleClose = () => {
         setShow(false);
         props.history.push(ROUTES.HOME);
+    }
+
+    const handlePasswordForget = () => {
+        setShow(false);
+        props.history.push(ROUTES.PASSWORD_FORGET);
+    }
+
+    const handleSignUp = () => {
+        setShow(false);
+        props.history.push(ROUTES.SIGN_UP);
     }
 
     return (
@@ -25,8 +36,8 @@ const SignInPageBase = (props) => {
 
                 <Modal.Body>
                     <SignInForm />
-                    <PasswordForgetLink />
-                    <SignUpLink />
+                    <PasswordForgetLink onClick={handlePasswordForget} />
+                    <SignUpLink onClick={handleSignUp} />
                 </Modal.Body>
             </Modal>
         </>
