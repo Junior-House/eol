@@ -5,6 +5,10 @@ import * as ROUTES from '../../routes';
 import SignOutButton from '../user/sign-out';
 import { AuthUserContext } from '../session';
 
+import './style.css'
+
+import ProfileIcon from './../../icons/profile.png'
+
 const Navigation = () => (
     <div>
         <AuthUserContext.Consumer>
@@ -18,9 +22,12 @@ const NavigationAuth = () => (
         <li>
             <Link to={ROUTES.HOME}>Home</Link>
         </li>
-        <li>
-            <Link to={ROUTES.PROFILE}>Profile</Link>
-        </li>
+
+        <Link to={ROUTES.PROFILE}>
+                <img id="profile-icon" src={ProfileIcon} alt="Profile Icon">
+                </img>
+        </Link>
+
         <li>
             <SignOutButton />
         </li>
@@ -32,9 +39,11 @@ const NavigationNonAuth = () => (
         <li>
             <Link to={ROUTES.HOME}>Home</Link>
         </li>
-        <li>
-            <Link to={ROUTES.SIGN_IN}>Sign In</Link>
-        </li>
+        
+        <Link to={ROUTES.SIGN_IN}>
+            <img id="profile-icon" src={ProfileIcon} alt="Sign In Icon">
+            </img>
+        </Link>
     </ul>
 );
 
