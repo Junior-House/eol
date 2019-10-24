@@ -19,10 +19,6 @@ const Navigation = () => (
 
 const NavigationAuth = () => (
     <ul>
-        <li>
-            <Link to={ROUTES.HOME}>Home</Link>
-        </li>
-
         <Link to={ROUTES.PROFILE}>
                 <img id="profile-icon" src={ProfileIcon} alt="Profile Icon">
                 </img>
@@ -35,16 +31,10 @@ const NavigationAuth = () => (
 );
 
 const NavigationNonAuth = () => (
-    <ul>
-        <li>
-            <Link to={ROUTES.HOME}>Home</Link>
-        </li>
-        
-        <Link to={ROUTES.SIGN_IN}>
-            <img id="profile-icon" src={ProfileIcon} alt="Sign In Icon">
-            </img>
-        </Link>
-    </ul>
+    <Link to={ROUTES.SIGN_IN}>
+        <img id="profile-icon" src={ProfileIcon} alt="Sign In Icon">
+        </img>
+    </Link>
 );
 
 export default Navigation;

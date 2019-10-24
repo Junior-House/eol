@@ -17,8 +17,9 @@ const App = () => {
     return (<Router>
         <div>
             <Navigation />
+            
+            <HomePage />
 
-            <Route exact path={ROUTES.HOME} component={HomePage} />
             <Route path={ROUTES.PROFILE} component={ProfilePage} />
             <Route path={ROUTES.SIGN_UP} component={SignUpPage} />
             <Route path={ROUTES.SIGN_IN} component={SignInPage} />

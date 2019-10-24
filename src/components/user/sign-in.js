@@ -7,14 +7,31 @@ import { PasswordForgetLink } from '../password/password-forget';
 import { withFirebase } from '../firebase';
 import * as ROUTES from '../../routes';
 
-const SignInPage = () => (
-    <div>
-        <h1>Sign In</h1>
-        <SignInForm />
-        <PasswordForgetLink />
-        <SignUpLink />
-    </div>
-);
+import Modal from 'react-bootstrap/Modal'
+
+const SignInPageBase = (props) => {
+    const [show, setShow] = React.useState(true);
+    const handleClose = () => {
+        setShow(false);
+        props.history.push(ROUTES.HOME);
+    }
+
+    return (
+        <>
+            <Modal show={show} onHide={handleClose} animation={false}>
+                <Modal.Header closeButton>
+                    <Modal.Title>Sign In</Modal.Title>
+                </Modal.Header>
+
+                <Modal.Body>
+                    <SignInForm />
+                    <PasswordForgetLink />
+                    <SignUpLink />
+                </Modal.Body>
+            </Modal>
+        </>
+    );
+};
 
 const INITIAL_STATE = {
     email: '',
@@ -43,7 +60,7 @@ class SignInFormBase extends Component {
             .catch(error => {
                 this.setState({ error });
             });
-            
+
         // prevent page reload
         event.preventDefault();
     };
@@ -55,7 +72,7 @@ class SignInFormBase extends Component {
     render() {
         const { email, password, error } = this.state;
         const isInvalid = password === '' || email === '';
-        
+
         // render sign-in form
         return (
             <form onSubmit={this.onSubmit}>
@@ -89,5 +106,8 @@ const SignInForm = compose(
     withFirebase,
 )(SignInFormBase);
 
+const SignInPage = compose(
+    withRouter
+)(SignInPageBase);
+
 export default SignInPage;
-export { SignInForm };
