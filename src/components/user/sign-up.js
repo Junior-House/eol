@@ -6,6 +6,9 @@ import { withFirebase } from '../firebase';
 import * as ROUTES from '../../routes';
 
 import Modal from 'react-bootstrap/Modal'
+import Form from 'react-bootstrap/Form'
+import InputGroup from 'react-bootstrap/InputGroup'
+import Button from 'react-bootstrap/Button';
 import './../../styles/general.css'
 
 const SignUpPageBase = (props) => {
@@ -16,17 +19,15 @@ const SignUpPageBase = (props) => {
     }
 
     return (
-        <>
-            <Modal show={show} onHide={handleClose} animation={false}>
-                <Modal.Header closeButton>
-                    <Modal.Title>Sign Up</Modal.Title>
-                </Modal.Header>
+        <Modal show={show} onHide={handleClose} animation={false}>
+            <Modal.Header closeButton>
+                <Modal.Title>Sign Up</Modal.Title>
+            </Modal.Header>
 
-                <Modal.Body>
-                    <SignUpForm />
-                </Modal.Body>
-            </Modal>
-        </>
+            <Modal.Body>
+                <SignUpForm />
+            </Modal.Body>
+        </Modal>
     );
 };
 
@@ -123,50 +124,73 @@ class SignUpFormBase extends Component {
 
         // render sign-up form
         return (
-            <form onSubmit={this.onSubmit}>
-                <input
-                    name="username"
-                    value={username}
-                    onChange={this.onChange}
-                    type="text"
-                    placeholder="Username"
-                />
-                <input
-                    name="email"
-                    value={email}
-                    onChange={this.onChange}
-                    type="text"
-                    placeholder="Email Address"
-                />
-                <input
-                    name="passwordOne"
-                    value={passwordOne}
-                    onChange={this.onChange}
-                    type="password"
-                    placeholder="Password"
-                />
-                <input
-                    name="passwordTwo"
-                    value={passwordTwo}
-                    onChange={this.onChange}
-                    type="password"
-                    placeholder="Confirm Password"
-                />
+            <Form onSubmit={this.onSubmit}>
+                <Form.Group className="mb-2">
+                    <InputGroup>
+                        <Form.Control
+                            name="username"
+                            value={username}
+                            onChange={this.onChange}
+                            type="text"
+                            placeholder="Username"
+                        />
 
-                <button disabled={isInvalid} type="submit">
-                    Sign Up
-                </button>
+                        <Form.Control
+                            name="email"
+                            value={email}
+                            onChange={this.onChange}
+                            type="text"
+                            placeholder="Email Address"
+                        />
+                    </InputGroup>
+                </Form.Group>
 
-                {error && <p>{error.message}</p>}
-            </form>
+                <Form.Group className="mb-2">
+                    <InputGroup>
+                        <Form.Control
+                            name="passwordOne"
+                            value={passwordOne}
+                            onChange={this.onChange}
+                            type="password"
+                            placeholder="Password"
+                        />
+
+                        <Form.Control
+                            name="passwordTwo"
+                            value={passwordTwo}
+                            onChange={this.onChange}
+                            type="password"
+                            placeholder="Confirm Password"
+                        />
+                    </InputGroup>
+                </Form.Group>
+
+                {error && 
+                    <Form.Group className="mt-2 mb-0">
+                        <Form.Label>
+                            <i>{error.message}</i>
+                        </Form.Label>
+                    </Form.Group>
+                }
+
+                <Form.Group className="mt-3 mb-0">
+                    <Button disabled={isInvalid} type="submit">
+                        Sign Up
+                    </Button>
+                </Form.Group>
+            </Form>
         );
     }
 }
 
 const SignUpLink = () => (
-    <p>
-        Don't have a profile? <Link to={ROUTES.SIGN_UP}>Sign Up</Link>
-    </p>
+    <Form>
+        <Form.Group className="mb-0">
+            <Form.Label>
+                Don't have a profile? <Link to={ROUTES.SIGN_UP}>Sign Up</Link>
+            </Form.Label>
+        </Form.Group>
+    </Form>
 );
 
 const SignUpForm = compose(

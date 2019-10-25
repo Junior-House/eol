@@ -5,6 +5,7 @@ import { compose } from 'recompose';
 import * as ROUTES from '../../routes';
 import { withFirebase } from '../firebase';
 
+import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
 import './../../styles/general.css'
 
@@ -15,9 +16,13 @@ const SignOutButtonBase = (props) => {
     };
 
     return (
-        <Button type="button" onClick={doSignOut}>
-            Sign Out
-        </Button>
+        <Form>
+            <Form.Group className="mt-5 mb-0">
+                <Button type="button" onClick={doSignOut}>
+                    Sign Out
+                </Button>
+            </Form.Group>
+        </Form>
     );
 };
 

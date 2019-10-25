@@ -72,30 +72,34 @@ class PasswordForgetFormBase extends Component {
         // render password reset form
         return (
             <Form onSubmit={this.onSubmit}>
-                <Form.Label>
-                    Reset My Password
-                </Form.Label>
+                <Form.Group className="mb-0">
+                    <Form.Label>
+                        Reset My Password
+                    </Form.Label>
 
-                <InputGroup className="mb-3">
-                    <Form.Control
-                        name="email"
-                        value={this.state.email}
-                        onChange={this.onChange}
-                        type="text"
-                        placeholder="Email Address"
-                    />
-                    
-                    <InputGroup.Append>
-                        <Button disabled={isInvalid} type="submit">
-                            Submit  
-                        </Button>
-                    </InputGroup.Append>
-                </InputGroup>
+                    <InputGroup>
+                        <Form.Control
+                            name="email"
+                            value={this.state.email}
+                            onChange={this.onChange}
+                            type="text"
+                            placeholder="Email Address"
+                        />
+
+                        <InputGroup.Append>
+                            <Button disabled={isInvalid} type="submit">
+                                Submit
+                            </Button>
+                        </InputGroup.Append>
+                    </InputGroup>
+                </Form.Group>
 
                 {error && 
-                    <Form.Label>
-                        {error.message}
-                    </Form.Label>
+                    <Form.Group className="mt-2 mb-0">
+                        <Form.Label>
+                            <i>{error.message}</i>
+                        </Form.Label>
+                    </Form.Group>
                 }
             </Form>
         );
@@ -103,9 +107,13 @@ class PasswordForgetFormBase extends Component {
 }
 
 const PasswordForgetLink = () => (
-    <p>
-        <Link to={ROUTES.PASSWORD_FORGET}>Forgot Password?</Link>
-    </p>
+    <Form>
+        <Form.Group className="mb-3">
+            <Form.Label>
+                <Link to={ROUTES.PASSWORD_FORGET}>Forgot Password?</Link>
+            </Form.Label>
+        </Form.Group>
+    </Form>
 );
 
 const PasswordForgetForm = compose(

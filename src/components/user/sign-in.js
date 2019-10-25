@@ -9,8 +9,7 @@ import { withFirebase } from '../firebase';
 
 import Modal from 'react-bootstrap/Modal'
 import Form from 'react-bootstrap/Form'
-import Col from 'react-bootstrap/Col'
-import Row from 'react-bootstrap/Row'
+import InputGroup from 'react-bootstrap/InputGroup'
 import Button from 'react-bootstrap/Button';
 import './../../styles/general.css'
 
@@ -39,7 +38,7 @@ const SignInPageBase = (props) => {
             </Modal.Header>
 
             <Modal.Body>
-                <SignIn />
+                <SignInForm/>
                 <PasswordForgetLink onClick={handlePasswordForget} />
                 <SignUpLink onClick={handleSignUp} />
             </Modal.Body>
@@ -53,7 +52,7 @@ const INITIAL_STATE = {
     error: null,
 };
 
-class SignInBase extends Component {
+class SignInFormBase extends Component {
     constructor(props) {
         super(props);
         this.state = { ...INITIAL_STATE };
@@ -85,45 +84,53 @@ class SignInBase extends Component {
 
     render() {
         const { email, password, error } = this.state;
-        const isInvalid = password === '' || email === '';
-
-        const signInForm =
-            <Form onSubmit={this.onSubmit}>
-                <input
-                    name="email"
-                    value={email}
-                    onChange={this.onChange}
-                    type="text"
-                    placeholder="Email Address"
-                />
-                <input
-                    name="password"
-                    value={password}
-                    onChange={this.onChange}
-                    type="password"
-                    placeholder="Password"
-                />
-
-                <Button disabled={isInvalid} type="submit">
-                    Sign In
-                </Button>
-
-                {error && <p>{error.message}</p>}
-            </Form>
+        const isInvalid = password === '' || email === '';            
 
         // render sign-in form
         return (
-            <Col>
+            <Form onSubmit={this.onSubmit}>
+                <Form.Group className="mb-2">
+                    <InputGroup>
+                        <Form.Control
+                            name="email"
+                            value={email}
+                            onChange={this.onChange}
+                            type="text"
+                            placeholder="Email Address"
+                        />
 
-            </Col>
+                        <Form.Control
+                            name="password"
+                            value={password}
+                            onChange={this.onChange}
+                            type="password"
+                            placeholder="Password"
+                        />
+
+                        <InputGroup.Append>
+                            <Button disabled={isInvalid} type="submit">
+                                Submit
+                            </Button>
+                        </InputGroup.Append>
+                    </InputGroup>
+                </Form.Group>
+
+                {error && 
+                    <Form.Group className="mt-2 mb-2">
+                        <Form.Label>
+                            <i>{error.message}</i>
+                        </Form.Label>
+                    </Form.Group>
+                }
+            </Form>
         );
     }
 }
 
-const SignIn = compose(
+const SignInForm = compose(
     withRouter,
     withFirebase,
-)(SignInBase);
+)(SignInFormBase);
 
 const SignInPage = compose(
     withRouter

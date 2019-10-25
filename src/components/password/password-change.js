@@ -48,38 +48,42 @@ class PasswordChangeFormBase extends Component {
         // render password change form
         return (
             <Form onSubmit={this.onSubmit}>
-                <Form.Label>
-                    Change My Password
-                </Form.Label>
+                <Form.Group className="mt-4 mb-2">
+                    <Form.Label>
+                        Change My Password
+                    </Form.Label>
 
-                <InputGroup className="mb-3">
-                    <Form.Control
-                        name="passwordOne"
-                        value={passwordOne}
-                        onChange={this.onChange}
-                        type="password"
-                        placeholder="New Password"
-                    />
+                    <InputGroup>
+                        <Form.Control
+                            name="passwordOne"
+                            value={passwordOne}
+                            onChange={this.onChange}
+                            type="password"
+                            placeholder="New Password"
+                        />
 
-                    <Form.Control
-                        name="passwordTwo"
-                        value={passwordTwo}
-                        onChange={this.onChange}
-                        type="password"
-                        placeholder="Confirm New Password"
-                    />
+                        <Form.Control
+                            name="passwordTwo"
+                            value={passwordTwo}
+                            onChange={this.onChange}
+                            type="password"
+                            placeholder="Confirm New Password"
+                        />
 
-                    <InputGroup.Append>
-                        <Button disabled={isInvalid} type="submit">
-                            Submit
-                        </Button>
-                    </InputGroup.Append>
-                </InputGroup>
+                        <InputGroup.Append>
+                            <Button disabled={isInvalid} type="submit">
+                                Submit
+                            </Button>
+                        </InputGroup.Append>
+                    </InputGroup>
+                </Form.Group>
 
                 {error && 
-                    <Form.Label>
-                        {error.message}
-                    </Form.Label>
+                    <Form.Group className="mt-2 mb-2">
+                        <Form.Label>
+                            <i>{error.message}</i>
+                        </Form.Label>
+                    </Form.Group>
                 }
             </Form>
         );
