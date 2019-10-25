@@ -41,6 +41,13 @@ class Firebase {
         return this.auth.currentUser.updatePassword(password);
     }
 
+    doSetUsername = (username) => {
+        return this.auth.currentUser.updateProfile({
+            displayName: username,
+            photoURL: null
+        });
+    }
+
     /*** USER API ***/
 
     user = username => this.db.ref(`users/${username}`);

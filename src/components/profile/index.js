@@ -33,6 +33,8 @@ const ProfileFormBase = () => (
     <AuthUserContext.Consumer>
         {authUser => (
             <>
+                <h4>Username: {authUser.displayName}</h4>
+                <h4>Email: {authUser.email}</h4>
                 <PasswordForgetForm />
                 <PasswordChangeForm />
                 <SignOutButton />

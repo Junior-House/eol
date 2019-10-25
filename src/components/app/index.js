@@ -1,5 +1,6 @@
 import React from 'react';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { compose } from 'recompose';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 
@@ -13,19 +14,25 @@ import PasswordForgetPage from '../password/password-forget';
 import HomePage from '../home';
 import ProfilePage from '../profile';
 
-const App = () => {
-    return (<Router>
-        <div>
-            <Navigation />
-            
-            <HomePage />
+const AppBase = () => {
+    return (
+        <Router>
+            <div>
+                <Navigation />
+                
+                <HomePage />
 
-            <Route path={ROUTES.PROFILE} component={ProfilePage} />
-            <Route path={ROUTES.SIGN_IN} component={SignInPage} />
-            <Route path={ROUTES.SIGN_UP} component={SignUpPage} />
-            <Route path={ROUTES.PASSWORD_FORGET} component={PasswordForgetPage} />
-        </div>
-    </Router>);
+                <Route path={ROUTES.PROFILE} component={ProfilePage} />
+                <Route path={ROUTES.SIGN_IN} component={SignInPage} />
+                <Route path={ROUTES.SIGN_UP} component={SignUpPage} />
+                <Route path={ROUTES.PASSWORD_FORGET} component={PasswordForgetPage} />
+            </div>
+        </Router>
+    );
 }
 
-export default withAuthentication(App);
+const App = compose(
+    withAuthentication
+)(AppBase);
+
+export default App;

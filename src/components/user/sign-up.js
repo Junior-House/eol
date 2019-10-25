@@ -82,6 +82,12 @@ class SignUpFormBase extends Component {
                     })
                     .then(() => {
 
+                        // add username to authentication database
+                        this.props.firebase
+                            .doSetUsername(username);
+                    })
+                    .then(() => {
+
                         // reset state and route to home
                         this.setState({ ...INITIAL_STATE });
                         this.props.history.push(ROUTES.HOME);
