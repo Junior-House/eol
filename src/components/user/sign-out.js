@@ -4,6 +4,7 @@ import { compose } from 'recompose';
 
 import * as ROUTES from '../../routes';
 import { withFirebase } from '../firebase';
+import './../../styles/general.css'
 
 const SignOutButtonBase = (props) => {
     const doSignOut = () => {

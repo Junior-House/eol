@@ -8,6 +8,7 @@ import { PasswordForgetLink } from '../password/password-forget';
 import { withFirebase } from '../firebase';
 
 import Modal from 'react-bootstrap/Modal'
+import './../../styles/general.css'
 
 const SignInPageBase = (props) => {
     const [show, setShow] = React.useState(true);

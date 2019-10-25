@@ -6,6 +6,7 @@ import { withFirebase } from '../firebase';
 import * as ROUTES from '../../routes';
 
 import Modal from 'react-bootstrap/Modal'
+import './../../styles/general.css'
 
 const SignUpPageBase = (props) => {
     const [show, setShow] = React.useState(true);

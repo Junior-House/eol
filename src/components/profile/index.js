@@ -9,6 +9,8 @@ import SignOutButton from '../user/sign-out';
 
 import Modal from 'react-bootstrap/Modal'
 
+import './../../styles/general.css'
+
 const ProfilePageBase = (props) => {
     const [show, setShow] = React.useState(true);
     const handleClose = () => {

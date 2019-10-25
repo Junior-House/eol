@@ -6,6 +6,10 @@ import * as ROUTES from '../../routes';
 import { withFirebase } from '../firebase';
 
 import Modal from 'react-bootstrap/Modal'
+import Form from 'react-bootstrap/Form'
+import InputGroup from 'react-bootstrap/InputGroup'
+import Button from 'react-bootstrap/Button'
+import './../../styles/general.css'
 
 const PasswordForgetPageBase = (props) => {
     const [show, setShow] = React.useState(true);
@@ -65,21 +69,29 @@ class PasswordForgetFormBase extends Component {
 
         // render password reset form
         return (
-            <form onSubmit={this.onSubmit}>
-                <input
-                    name="email"
-                    value={this.state.email}
-                    onChange={this.onChange}
-                    type="text"
-                    placeholder="Email Address"
-                />
+                <Form onSubmit={this.onSubmit}>
+                    <Form.Label>
+                        Reset My Password
+                    </Form.Label>
 
-                <button disabled={isInvalid} type="submit">
-                    Reset My Password
-                </button>
-
-                {error && <p>{error.message}</p>}
-            </form>
+                    <InputGroup className="mb-3">
+                        <Form.Control
+                            name="email"
+                            value={this.state.email}
+                            onChange={this.onChange}
+                            type="text"
+                            placeholder="Email Address"
+                        />
+                        
+                        <InputGroup.Append>
+                            <Button disabled={isInvalid} type="submit">
+                                Submit  
+                            </Button>
+                        </InputGroup.Append>
+                    </InputGroup>
+                    
+                    {error && <p>{error.message}</p>}
+                </Form>
         );
     }
 }
