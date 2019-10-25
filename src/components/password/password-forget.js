@@ -21,7 +21,9 @@ const PasswordForgetPageBase = (props) => {
     return (
         <Modal show={show} onHide={handleClose} animation={false}>
             <Modal.Header closeButton>
-                <Modal.Title>Forgot Password</Modal.Title>
+                <Modal.Title>
+                    Forgot Password
+                </Modal.Title>
             </Modal.Header>
 
             <Modal.Body>
@@ -69,29 +71,33 @@ class PasswordForgetFormBase extends Component {
 
         // render password reset form
         return (
-                <Form onSubmit={this.onSubmit}>
-                    <Form.Label>
-                        Reset My Password
-                    </Form.Label>
+            <Form onSubmit={this.onSubmit}>
+                <Form.Label>
+                    Reset My Password
+                </Form.Label>
 
-                    <InputGroup className="mb-3">
-                        <Form.Control
-                            name="email"
-                            value={this.state.email}
-                            onChange={this.onChange}
-                            type="text"
-                            placeholder="Email Address"
-                        />
-                        
-                        <InputGroup.Append>
-                            <Button disabled={isInvalid} type="submit">
-                                Submit  
-                            </Button>
-                        </InputGroup.Append>
-                    </InputGroup>
+                <InputGroup className="mb-3">
+                    <Form.Control
+                        name="email"
+                        value={this.state.email}
+                        onChange={this.onChange}
+                        type="text"
+                        placeholder="Email Address"
+                    />
                     
-                    {error && <p>{error.message}</p>}
-                </Form>
+                    <InputGroup.Append>
+                        <Button disabled={isInvalid} type="submit">
+                            Submit  
+                        </Button>
+                    </InputGroup.Append>
+                </InputGroup>
+
+                {error && 
+                    <Form.Label>
+                        {error.message}
+                    </Form.Label>
+                }
+            </Form>
         );
     }
 }

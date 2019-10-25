@@ -8,6 +8,10 @@ import { PasswordForgetLink } from '../password/password-forget';
 import { withFirebase } from '../firebase';
 
 import Modal from 'react-bootstrap/Modal'
+import Form from 'react-bootstrap/Form'
+import Col from 'react-bootstrap/Col'
+import Row from 'react-bootstrap/Row'
+import Button from 'react-bootstrap/Button';
 import './../../styles/general.css'
 
 const SignInPageBase = (props) => {
@@ -29,19 +33,17 @@ const SignInPageBase = (props) => {
     }
 
     return (
-        <>
-            <Modal show={show} onHide={handleClose} animation={false}>
-                <Modal.Header closeButton>
-                    <Modal.Title>Sign In</Modal.Title>
-                </Modal.Header>
+        <Modal show={show} onHide={handleClose} animation={false}>
+            <Modal.Header closeButton>
+                <Modal.Title>Sign In</Modal.Title>
+            </Modal.Header>
 
-                <Modal.Body>
-                    <SignInForm />
-                    <PasswordForgetLink onClick={handlePasswordForget} />
-                    <SignUpLink onClick={handleSignUp} />
-                </Modal.Body>
-            </Modal>
-        </>
+            <Modal.Body>
+                <SignIn />
+                <PasswordForgetLink onClick={handlePasswordForget} />
+                <SignUpLink onClick={handleSignUp} />
+            </Modal.Body>
+        </Modal>
     );
 };
 
@@ -51,7 +53,7 @@ const INITIAL_STATE = {
     error: null,
 };
 
-class SignInFormBase extends Component {
+class SignInBase extends Component {
     constructor(props) {
         super(props);
         this.state = { ...INITIAL_STATE };
@@ -85,9 +87,8 @@ class SignInFormBase extends Component {
         const { email, password, error } = this.state;
         const isInvalid = password === '' || email === '';
 
-        // render sign-in form
-        return (
-            <form onSubmit={this.onSubmit}>
+        const signInForm =
+            <Form onSubmit={this.onSubmit}>
                 <input
                     name="email"
                     value={email}
@@ -103,20 +104,26 @@ class SignInFormBase extends Component {
                     placeholder="Password"
                 />
 
-                <button disabled={isInvalid} type="submit">
+                <Button disabled={isInvalid} type="submit">
                     Sign In
-                </button>
+                </Button>
 
                 {error && <p>{error.message}</p>}
-            </form>
+            </Form>
+
+        // render sign-in form
+        return (
+            <Col>
+
+            </Col>
         );
     }
 }
 
-const SignInForm = compose(
+const SignIn = compose(
     withRouter,
     withFirebase,
-)(SignInFormBase);
+)(SignInBase);
 
 const SignInPage = compose(
     withRouter

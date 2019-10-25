@@ -3,6 +3,11 @@ import React, { Component } from 'react';
 import { withFirebase } from '../firebase';
 import { compose } from 'recompose';
 
+import Form from 'react-bootstrap/Form'
+import InputGroup from 'react-bootstrap/InputGroup'
+import Button from 'react-bootstrap/Button'
+import './../../styles/general.css'
+
 const INITIAL_STATE = {
     passwordOne: '',
     passwordTwo: '',
@@ -38,33 +43,45 @@ class PasswordChangeFormBase extends Component {
 
     render() {
         const { passwordOne, passwordTwo, error } = this.state;
-        const isInvalid =
-            passwordOne !== passwordTwo || passwordOne === '';
+        const isInvalid = passwordOne !== passwordTwo || passwordOne === '';
 
         // render password change form
         return (
-            <form onSubmit={this.onSubmit}>
-                <input
-                    name="passwordOne"
-                    value={passwordOne}
-                    onChange={this.onChange}
-                    type="password"
-                    placeholder="New Password"
-                />
-                <input
-                    name="passwordTwo"
-                    value={passwordTwo}
-                    onChange={this.onChange}
-                    type="password"
-                    placeholder="Confirm New Password"
-                />
+            <Form onSubmit={this.onSubmit}>
+                <Form.Label>
+                    Change My Password
+                </Form.Label>
 
-                <button disabled={isInvalid} type="submit">
-                    Reset My Password
-                </button>
+                <InputGroup className="mb-3">
+                    <Form.Control
+                        name="passwordOne"
+                        value={passwordOne}
+                        onChange={this.onChange}
+                        type="password"
+                        placeholder="New Password"
+                    />
 
-                {error && <p>{error.message}</p>}
-            </form>
+                    <Form.Control
+                        name="passwordTwo"
+                        value={passwordTwo}
+                        onChange={this.onChange}
+                        type="password"
+                        placeholder="Confirm New Password"
+                    />
+
+                    <InputGroup.Append>
+                        <Button disabled={isInvalid} type="submit">
+                            Submit
+                        </Button>
+                    </InputGroup.Append>
+                </InputGroup>
+
+                {error && 
+                    <Form.Label>
+                        {error.message}
+                    </Form.Label>
+                }
+            </Form>
         );
     }
 }

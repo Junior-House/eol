@@ -4,6 +4,8 @@ import { compose } from 'recompose';
 
 import * as ROUTES from '../../routes';
 import { withFirebase } from '../firebase';
+
+import Button from 'react-bootstrap/Button'
 import './../../styles/general.css'
 
 const SignOutButtonBase = (props) => {
@@ -13,9 +15,9 @@ const SignOutButtonBase = (props) => {
     };
 
     return (
-        <button type="button" onClick={doSignOut}>
+        <Button type="button" onClick={doSignOut}>
             Sign Out
-        </button>
+        </Button>
     );
 };
 

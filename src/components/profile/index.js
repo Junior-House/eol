@@ -8,10 +8,12 @@ import PasswordChangeForm from '../password/password-change';
 import SignOutButton from '../user/sign-out';
 
 import Modal from 'react-bootstrap/Modal'
-
+import Form from 'react-bootstrap/Form'
+import Col from 'react-bootstrap/Col'
+import Row from 'react-bootstrap/Row'
 import './../../styles/general.css'
 
-const ProfilePageBase = (props) => {
+const ProfilePage = (props) => {
     const [show, setShow] = React.useState(true);
     const handleClose = () => {
         setShow(false);
@@ -21,37 +23,61 @@ const ProfilePageBase = (props) => {
     return (
         <Modal show={show} onHide={handleClose} animation={false}>
             <Modal.Header closeButton>
-                <Modal.Title>Profile</Modal.Title>
+                <Modal.Title>
+                    Profile
+                </Modal.Title>
             </Modal.Header>
 
             <Modal.Body>
-                <ProfileForm />
+                <Profile />
             </Modal.Body>
         </Modal>
     );
 };
 
-const ProfileFormBase = () => (
+const ProfileBase = () => (
     <AuthUserContext.Consumer>
         {authUser => (
-            <>
-                <h4>Username: {authUser.displayName}</h4>
-                <h4>Email: {authUser.email}</h4>
-                <PasswordForgetForm />
-                <PasswordChangeForm />
-                <SignOutButton />
-            </>
+            <Col>
+                <Form.Group className="mb-4">
+                    <Row>
+                        <Form.Label>
+                            <b>Username:</b> {authUser.displayName}
+                        </Form.Label>
+                    </Row>
+
+                    <Row>
+                        <Form.Label>
+                            <b>Email:</b> {authUser.email}
+                        </Form.Label>
+                    </Row>
+                </Form.Group>
+
+                <Form.Group className="mb-3">
+                    <Row>
+                        <PasswordForgetForm />
+                    </Row>
+                </Form.Group>
+
+                <Form.Group className="mb-4">
+                    <Row>
+                        <PasswordChangeForm />
+                    </Row>
+                </Form.Group>
+
+                <Form.Group className="mb-0">
+                    <Row>
+                        <SignOutButton />
+                    </Row>
+                </Form.Group>
+            </Col>
         )}
     </AuthUserContext.Consumer>
 );
 
 const condition = authUser => !!authUser;
-const ProfileForm = compose(
+const Profile = compose(
     withAuthorization(condition)
-)(ProfileFormBase);
-
-const ProfilePage = compose(
-    
-)(ProfilePageBase);
+)(ProfileBase);
 
 export default ProfilePage;
