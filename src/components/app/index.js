@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route } from 'react-router-dom';
 import { compose } from 'recompose';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
+import './../../app.css'
 
 import * as ROUTES from '../../routes';
 import { withAuthentication } from '../session';

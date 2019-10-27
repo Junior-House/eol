@@ -9,7 +9,6 @@ import SignOutButton from '../user/sign-out';
 
 import Modal from 'react-bootstrap/Modal'
 import Form from 'react-bootstrap/Form'
-import './../../styles/general.css'
 
 const ProfilePage = (props) => {
     const [show, setShow] = React.useState(true);

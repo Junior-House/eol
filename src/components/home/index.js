@@ -1,15 +1,24 @@
 import React from 'react';
-// import { withRouter } from 'react-router-dom';
-// import { compose } from 'recompose';
 
-// import { withFirebase } from '../firebase';
+import { AuthUserContext } from '../session';
+import Map from './map'
 
-const HomePage = () => (
+const HomePage = () => (   
     <div>
-        <h1>
-            Home
-        </h1>
+        <AuthUserContext.Consumer>
+            { authUser => authUser ? <HomePageAuth /> : <HomePageNonAuth /> }
+        </AuthUserContext.Consumer>
     </div>
+);
+
+const HomePageAuth = () => (
+    <Map />
+);
+
+const HomePageNonAuth = () => (
+    <p>
+        Home (Non-Auth)
+    </p>
 );
 
 export default HomePage;

@@ -4,8 +4,6 @@ import { Link } from 'react-router-dom';
 import * as ROUTES from '../../routes';
 import { AuthUserContext } from '../session';
 
-import './style.css'
-
 import ProfileIcon from './../../icons/profile.png'
 
 const Navigation = () => (
@@ -18,7 +16,7 @@ const Navigation = () => (
 
 const NavigationAuth = () => (
     <Link to={ROUTES.PROFILE}>
-            <img id="profile-icon" src={ProfileIcon} alt="Profile Icon">
+            <img className="navigation-icon" id="profile-icon" src={ProfileIcon} alt="Profile Icon">
             </img>
     </Link>
 );

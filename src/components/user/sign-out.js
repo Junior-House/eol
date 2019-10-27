@@ -7,7 +7,6 @@ import { withFirebase } from '../firebase';
 
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
-import './../../styles/general.css'
 
 const SignOutButtonBase = (props) => {
     const doSignOut = () => {

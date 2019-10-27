@@ -1,0 +1,19 @@
+/* GENERAL */
+
+input:focus, select:focus, textarea:focus, button:focus {
+    outline: none;
+}
+
+/* NAVIGATION */
+
+.navigation-icon {
+    z-index: 10;
+}
+
+#profile-icon {
+    position: fixed;
+    top: 25px;
+    right: 30px;
+    height: 60px;
+    width: 60px;
+}

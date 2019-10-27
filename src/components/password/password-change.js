@@ -6,7 +6,6 @@ import { compose } from 'recompose';
 import Form from 'react-bootstrap/Form'
 import InputGroup from 'react-bootstrap/InputGroup'
 import Button from 'react-bootstrap/Button'
-import './../../styles/general.css'
 
 const INITIAL_STATE = {
     passwordOne: '',
